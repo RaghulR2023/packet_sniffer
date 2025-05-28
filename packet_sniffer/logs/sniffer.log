@@ -1,0 +1,7 @@
+2025-05-27 19:04:48,082 - core.capture - INFO - Starting capture on interface {EB4E1732-8F80-4856-A7BA-AA52772231EB}
+2025-05-27 19:04:48,140 - core.capture - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:04:48,140 - __main__ - ERROR - An error occurred: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:06:33,531 - core.capture - INFO - Starting capture on interface {EB4E1732-8F80-4856-A7BA-AA52772231EB}
+2025-05-27 19:06:33,577 - core.capture - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:06:33,578 - __main__ - ERROR - An error occurred: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:15:01,835 - __main__ - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
