@@ -27,7 +27,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class PacketSniffer:
-    def __init__(self, interface=None, filter_string=None, packet_count=None, source_ip=None, domain=None):
+    def __init__(self, interface=None, filter_string=None, packet_count=None, source_ip=None, domain=None, timeout=None):
         self.interface = interface or self._get_default_interface()
         self.filter_string = filter_string
         self.packet_count = packet_count
@@ -35,6 +35,7 @@ class PacketSniffer:
         self.domain = domain
         self.packets_captured = 0
         self.source_packets = []
+        self.timeout = timeout
         
     def _get_default_interface(self):
         """Get the default network interface."""
@@ -107,42 +108,62 @@ class PacketSniffer:
         """Get detailed DNS information."""
         dns_info = {}
         
-        # Try to get DNS layer from the packet
-        dns_layer = None
-        if DNS in packet:
-            dns_layer = packet[DNS]
-        elif Raw in packet:
-            try:
-                dns_layer = DNS(packet[Raw].load)
-            except:
-                pass
-        
-        if dns_layer:
-            dns_info['type'] = 'Query' if dns_layer.qr == 0 else 'Response'
-            dns_info['id'] = dns_layer.id
+        try:
+            # Try to get DNS layer from the packet
+            dns_layer = None
+            if DNS in packet:
+                logger.info("Found DNS layer in packet")
+                dns_layer = packet[DNS]
+            elif Raw in packet and (UDP in packet or TCP in packet):
+                try:
+                    if UDP in packet and (packet[UDP].sport == 53 or packet[UDP].dport == 53):
+                        logger.info("Found DNS in UDP packet")
+                        dns_layer = DNS(packet[Raw].load)
+                    elif TCP in packet and (packet[TCP].sport == 53 or packet[TCP].dport == 53):
+                        logger.info("Found DNS in TCP packet")
+                        dns_layer = DNS(packet[Raw].load)
+                except Exception as e:
+                    logger.error(f"Error parsing DNS from raw payload: {str(e)}")
             
-            # Get query information
-            if hasattr(dns_layer, 'qd') and dns_layer.qd:
-                qname = dns_layer.qd.qname.decode('utf-8', errors='ignore')
-                qtype = dns_layer.qd.qtype
-                dns_info['query'] = {
-                    'name': qname,
-                    'type': self._get_dns_type_name(qtype)
-                }
-            
-            # Get response information
-            if dns_layer.qr == 1:  # Response packet
-                answers = []
-                if hasattr(dns_layer, 'an') and dns_layer.an:
-                    for rr in dns_layer.an:
-                        if hasattr(rr, 'rdata'):
-                            answers.append({
-                                'name': rr.rrname.decode('utf-8', errors='ignore'),
-                                'type': self._get_dns_type_name(rr.type),
-                                'data': str(rr.rdata)
-                            })
-                dns_info['answers'] = answers
+            if dns_layer:
+                dns_info['type'] = 'Query' if dns_layer.qr == 0 else 'Response'
+                dns_info['id'] = dns_layer.id
+                logger.info(f"DNS packet type: {dns_info['type']}, ID: {dns_info['id']}")
                 
+                # Get query information
+                if hasattr(dns_layer, 'qd') and dns_layer.qd:
+                    try:
+                        qname = dns_layer.qd.qname.decode('utf-8', errors='ignore')
+                        qtype = dns_layer.qd.qtype
+                        dns_info['query'] = {
+                            'name': qname,
+                            'type': self._get_dns_type_name(qtype)
+                        }
+                        logger.info(f"Processed DNS query: {qname} (Type: {self._get_dns_type_name(qtype)})")
+                    except Exception as e:
+                        logger.error(f"Error processing DNS query: {str(e)}")
+                
+                # Get response information
+                if dns_layer.qr == 1:  # Response packet
+                    answers = []
+                    if hasattr(dns_layer, 'an') and dns_layer.an:
+                        for rr in dns_layer.an:
+                            try:
+                                if hasattr(rr, 'rdata'):
+                                    answer = {
+                                        'name': rr.rrname.decode('utf-8', errors='ignore'),
+                                        'type': self._get_dns_type_name(rr.type),
+                                        'data': str(rr.rdata)
+                                    }
+                                    answers.append(answer)
+                                    logger.info(f"Processed DNS answer: {answer['name']} -> {answer['data']} ({answer['type']})")
+                            except Exception as e:
+                                logger.error(f"Error processing DNS answer: {str(e)}")
+                    dns_info['answers'] = answers
+                    
+        except Exception as e:
+            logger.error(f"Error getting DNS info: {str(e)}")
+        
         return dns_info
 
     def _get_dns_type_name(self, type_code):
@@ -155,7 +176,35 @@ class PacketSniffer:
             15: 'MX',
             16: 'TXT',
             28: 'AAAA',
-            33: 'SRV'
+            33: 'SRV',
+            255: 'ANY',
+            252: 'AXFR',
+            251: 'IXFR',
+            249: 'TKEY',
+            250: 'TSIG',
+            41: 'OPT',
+            43: 'DS',
+            44: 'SSHFP',
+            45: 'IPSECKEY',
+            46: 'RRSIG',
+            47: 'NSEC',
+            48: 'DNSKEY',
+            49: 'DHCID',
+            50: 'NSEC3',
+            51: 'NSEC3PARAM',
+            52: 'TLSA',
+            53: 'SMIMEA',
+            55: 'HIP',
+            56: 'NINFO',
+            57: 'RKEY',
+            58: 'TALINK',
+            59: 'CDS',
+            60: 'CDNSKEY',
+            61: 'OPENPGPKEY',
+            62: 'CSYNC',
+            63: 'ZONEMD',
+            64: 'SVCB',
+            65: 'HTTPS'
         }
         return dns_types.get(type_code, f'Type{type_code}')
 
@@ -297,35 +346,56 @@ class PacketSniffer:
     def packet_callback(self, packet):
         """Callback function for each captured packet."""
         try:
-            # Check if packet matches domain filter
-            if self.domain:
+            if self.source_ip and IP in packet:
+                if packet[IP].src == self.source_ip:
+                    self.source_packets.append(packet)
+                    self._print_packet_info(packet)
+            elif self.domain and (DNS in packet or (Raw in packet and (UDP in packet or TCP in packet))):
+                # Try to get DNS info from the packet
                 dns_info = self._get_dns_info(packet)
-                if not dns_info or 'query' not in dns_info:
-                    return False
-                if self.domain.lower() not in dns_info['query']['name'].lower():
-                    return False
+                if dns_info:
+                    should_print = False
+                    
+                    # Check query name
+                    if 'query' in dns_info:
+                        qname = dns_info['query']['name']
+                        logger.info(f"Found DNS query: {qname}")
+                        if self.domain.lower() in qname.lower():
+                            logger.info(f"Matched domain in query: {qname}")
+                            should_print = True
+                        else:
+                            logger.info(f"Domain {self.domain} not found in query: {qname}")
+                    
+                    # Check answer names
+                    if 'answers' in dns_info:
+                        for answer in dns_info['answers']:
+                            logger.info(f"Checking answer: {answer['name']}")
+                            if self.domain.lower() in answer['name'].lower():
+                                logger.info(f"Matched domain in answer: {answer['name']}")
+                                should_print = True
+                                break
+                    
+                    if should_print:
+                        self._print_packet_info(packet)
+                    else:
+                        logger.info("No domain match found in packet")
+                else:
+                    logger.info("No DNS info found in packet")
+            else:
+                self._print_packet_info(packet)
             
             self.packets_captured += 1
             
-            # Check if packet is from the specified source IP
-            if self.source_ip:
-                if IP in packet and packet[IP].src == self.source_ip:
-                    self.source_packets.append(packet)
-                elif IPv6 in packet and packet[IPv6].src == self.source_ip:
-                    self.source_packets.append(packet)
-            
-            self._print_packet_info(packet)
-            
-            # Stop if we've reached the packet count
-            if self.packet_count and self.packets_captured >= self.packet_count:
-                if self.source_ip:
-                    self._print_source_ip_summary()
+            # Only print summary if we're tracking source IP and have reached the count
+            if self.source_ip and self.packet_count and self.packets_captured >= self.packet_count:
+                self._print_source_ip_summary()
                 return True
+            
         except Exception as e:
             logger.error(f"Error processing packet: {str(e)}")
-            return False
+            return None
 
-    def start_capture(self):
+    def start_capture(self, timeout=None):
         """Start capturing packets."""
         try:
             print(f"\n{Fore.GREEN}Starting packet capture on interface: {self.interface}{Style.RESET_ALL}")
@@ -339,16 +409,29 @@ class PacketSniffer:
             conf.iface = self.interface
             
             # Print the filter being used
-            print(f"{Fore.YELLOW}Using filter: {self.filter_string}{Style.RESET_ALL}\n")
+            if self.filter_string:
+                print(f"{Fore.YELLOW}Using filter: {self.filter_string}{Style.RESET_ALL}\n")
             
-            sniff(
-                iface=self.interface,
-                filter=self.filter_string,
-                prn=self.packet_callback,
-                count=self.packet_count,
-                store=0,
-                stop_filter=lambda x: self.packets_captured >= self.packet_count if self.packet_count else False
-            )
+            # Set up sniffing parameters
+            sniff_params = {
+                'iface': self.interface,
+                'filter': self.filter_string,
+                'prn': self.packet_callback,
+                'store': 0
+            }
+            
+            # Add count if specified
+            if self.packet_count is not None:
+                sniff_params['count'] = self.packet_count
+            
+            # Add timeout if specified
+            if timeout is not None or self.timeout is not None:
+                sniff_params['timeout'] = timeout or self.timeout
+            
+            # Start sniffing
+            logger.info("Starting packet capture...")
+            sniff(**sniff_params)
+            logger.info("Packet capture completed")
             
         except KeyboardInterrupt:
             print(f"\n{Fore.YELLOW}Packet capture stopped by user{Style.RESET_ALL}")
@@ -364,11 +447,12 @@ class PacketSniffer:
 def parse_arguments():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description='Network Packet Sniffer')
-    parser.add_argument('--interface', '-i', help='Network interface to capture packets from')
-    parser.add_argument('--filter', '-f', help='BPF filter string (e.g., "tcp port 80")')
-    parser.add_argument('--count', '-c', type=int, help='Number of packets to capture')
-    parser.add_argument('--source', '-s', help='Track packets from specific source IP')
-    parser.add_argument('--domain', '-d', help='Filter DNS packets for specific domain')
+    parser.add_argument('--interface', help='Network interface to capture packets from')
+    parser.add_argument('--filter', help='BPF filter string')
+    parser.add_argument('--count', type=int, help='Number of packets to capture')
+    parser.add_argument('--source', help='Source IP address to track')
+    parser.add_argument('--domain', help='Domain name to filter DNS packets')
+    parser.add_argument('--timeout', type=int, help='Timeout in seconds for packet capture')
     return parser.parse_args()
 
 def main():
@@ -390,7 +474,7 @@ def main():
         print(f"\n{Fore.YELLOW}Please specify an interface using --interface or -i{Style.RESET_ALL}")
         return 1
     
-    return sniffer.start_capture()
+    return sniffer.start_capture(timeout=args.timeout)
 
 if __name__ == '__main__':
     sys.exit(main()) 

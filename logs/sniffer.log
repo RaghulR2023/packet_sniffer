@@ -5,3 +5,585 @@
 2025-05-27 19:06:33,577 - core.capture - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
 2025-05-27 19:06:33,578 - __main__ - ERROR - An error occurred: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
 2025-05-27 19:15:01,835 - __main__ - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-28 17:04:30,343 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:04:39,674 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:39,675 - __main__ - INFO - DNS packet type: Query, ID: 9662
+2025-05-28 17:04:39,676 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:04:39,676 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:39,676 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:39,676 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:39,677 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:39,677 - __main__ - INFO - DNS packet type: Query, ID: 47503
+2025-05-28 17:04:39,677 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:04:39,678 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:39,678 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:39,678 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:39,683 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:39,684 - __main__ - INFO - DNS packet type: Response, ID: 9662
+2025-05-28 17:04:39,684 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:04:39,684 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:04:39,684 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:04:39,684 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 35.173.53.81 (A)
+2025-05-28 17:04:39,684 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 54.147.244.222 (A)
+2025-05-28 17:04:39,684 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 18.215.59.182 (A)
+2025-05-28 17:04:39,688 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 3.234.165.166 (A)
+2025-05-28 17:04:39,688 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 34.236.224.118 (A)
+2025-05-28 17:04:39,688 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 52.201.12.24 (A)
+2025-05-28 17:04:39,688 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 44.209.102.224 (A)
+2025-05-28 17:04:39,689 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 34.225.103.142 (A)
+2025-05-28 17:04:39,689 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:39,689 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:39,689 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:04:39,689 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:04:39,690 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,690 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,690 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,690 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,690 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,691 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,691 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,691 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:04:39,691 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:39,693 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:39,694 - __main__ - INFO - DNS packet type: Response, ID: 47503
+2025-05-28 17:04:39,694 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:04:39,695 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:04:39,695 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:04:39,695 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:39,696 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:39,702 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:04:39,702 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:04:39,702 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:41,083 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:41,083 - __main__ - INFO - DNS packet type: Query, ID: 6320
+2025-05-28 17:04:41,085 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:04:41,085 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:41,085 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:41,085 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:41,087 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:41,088 - __main__ - INFO - DNS packet type: Response, ID: 6320
+2025-05-28 17:04:41,088 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:04:41,089 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:04:41,089 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:04:41,089 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:41,089 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:41,091 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:04:41,091 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:04:41,091 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:41,873 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:41,874 - __main__ - INFO - DNS packet type: Query, ID: 62872
+2025-05-28 17:04:41,876 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:04:41,876 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:41,877 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:41,877 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:41,878 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:41,879 - __main__ - INFO - DNS packet type: Query, ID: 26244
+2025-05-28 17:04:41,879 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:04:41,879 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:41,880 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:41,880 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:41,881 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:41,881 - __main__ - INFO - DNS packet type: Query, ID: 45936
+2025-05-28 17:04:41,882 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: HTTPS)
+2025-05-28 17:04:41,882 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:41,882 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:41,882 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:41,884 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:04:41,888 - __main__ - INFO - DNS packet type: Response, ID: 62872
+2025-05-28 17:04:41,888 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:04:41,889 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:04:41,889 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:04:41,889 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:04:41,890 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:04:41,890 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:04:41,890 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:04:41,891 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:04:41,891 - __main__ - INFO - Packet capture completed
+2025-05-28 17:06:19,803 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:06:20,589 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:20,590 - __main__ - INFO - DNS packet type: Query, ID: 30166
+2025-05-28 17:06:20,591 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:06:20,592 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:06:20,592 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:06:20,592 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:20,593 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:20,595 - __main__ - INFO - DNS packet type: Response, ID: 30166
+2025-05-28 17:06:20,595 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:06:20,596 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:06:20,596 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:06:20,597 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:06:20,597 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:06:20,598 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:06:20,598 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:06:20,599 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:20,918 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:20,918 - __main__ - INFO - DNS packet type: Query, ID: 3350
+2025-05-28 17:06:20,919 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:06:20,919 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,920 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,920 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:20,921 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:20,922 - __main__ - INFO - DNS packet type: Query, ID: 7167
+2025-05-28 17:06:20,923 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:06:20,923 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,924 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,924 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:20,926 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:20,926 - __main__ - INFO - DNS packet type: Response, ID: 3350
+2025-05-28 17:06:20,927 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:06:20,927 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:06:20,929 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdaue01.australiaeast.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:06:20,929 - __main__ - INFO - Processed DNS answer: onedscolprdaue01.australiaeast.cloudapp.azure.com. -> 13.70.79.200 (A)
+2025-05-28 17:06:20,930 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,930 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,931 - __main__ - INFO - Checking answer: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,931 - __main__ - INFO - Checking answer: mobile.events.data.trafficmanager.net.
+2025-05-28 17:06:20,931 - __main__ - INFO - Checking answer: onedscolprdaue01.australiaeast.cloudapp.azure.com.
+2025-05-28 17:06:20,932 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:20,934 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:20,935 - __main__ - INFO - DNS packet type: Response, ID: 7167
+2025-05-28 17:06:20,935 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:06:20,936 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:06:20,936 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdaue01.australiaeast.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:06:20,937 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,937 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,937 - __main__ - INFO - Checking answer: mobile.events.data.microsoft.com.
+2025-05-28 17:06:20,939 - __main__ - INFO - Checking answer: mobile.events.data.trafficmanager.net.
+2025-05-28 17:06:20,939 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:21,541 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:21,542 - __main__ - INFO - DNS packet type: Query, ID: 10562
+2025-05-28 17:06:21,543 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:06:21,543 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:06:21,543 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:06:21,543 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:21,547 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:21,547 - __main__ - INFO - DNS packet type: Response, ID: 10562
+2025-05-28 17:06:21,548 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:06:21,549 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:06:21,550 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:06:21,550 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:06:21,550 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:06:21,551 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:06:21,551 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:06:21,551 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:22,503 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:22,504 - __main__ - INFO - DNS packet type: Query, ID: 16827
+2025-05-28 17:06:22,504 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:06:22,505 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:06:22,505 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:06:22,506 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:22,509 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:22,510 - __main__ - INFO - DNS packet type: Response, ID: 16827
+2025-05-28 17:06:22,510 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:06:22,511 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:06:22,511 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:06:22,512 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:06:22,512 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:06:22,513 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:06:22,513 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:06:22,513 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:22,514 - __main__ - INFO - Packet capture completed
+2025-05-28 17:06:56,007 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:06:57,182 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:57,182 - __main__ - INFO - DNS packet type: Query, ID: 45721
+2025-05-28 17:06:57,182 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:06:57,182 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,183 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,183 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:57,184 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:57,185 - __main__ - INFO - DNS packet type: Query, ID: 25856
+2025-05-28 17:06:57,185 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:06:57,186 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,186 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,187 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:57,189 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:57,190 - __main__ - INFO - DNS packet type: Response, ID: 45721
+2025-05-28 17:06:57,190 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:06:57,191 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:06:57,192 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdaue01.australiaeast.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:06:57,192 - __main__ - INFO - Processed DNS answer: onedscolprdaue01.australiaeast.cloudapp.azure.com. -> 13.70.79.200 (A)
+2025-05-28 17:06:57,192 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,194 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,195 - __main__ - INFO - Checking answer: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,198 - __main__ - INFO - Checking answer: mobile.events.data.trafficmanager.net.
+2025-05-28 17:06:57,199 - __main__ - INFO - Checking answer: onedscolprdaue01.australiaeast.cloudapp.azure.com.
+2025-05-28 17:06:57,199 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:06:57,202 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:06:57,202 - __main__ - INFO - DNS packet type: Response, ID: 25856
+2025-05-28 17:06:57,202 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:06:57,202 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:06:57,204 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdaue01.australiaeast.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:06:57,205 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,205 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,205 - __main__ - INFO - Checking answer: mobile.events.data.microsoft.com.
+2025-05-28 17:06:57,206 - __main__ - INFO - Checking answer: mobile.events.data.trafficmanager.net.
+2025-05-28 17:06:57,206 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:07:26,969 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:07:26,970 - __main__ - INFO - DNS packet type: Query, ID: 50658
+2025-05-28 17:07:26,971 - __main__ - INFO - Processed DNS query: www.msftncsi.com. (Type: A)
+2025-05-28 17:07:26,971 - __main__ - INFO - Found DNS query: www.msftncsi.com.
+2025-05-28 17:07:26,972 - __main__ - INFO - Domain google.com not found in query: www.msftncsi.com.
+2025-05-28 17:07:26,972 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:07:26,973 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:07:26,974 - __main__ - INFO - DNS packet type: Query, ID: 24472
+2025-05-28 17:07:26,974 - __main__ - INFO - Processed DNS query: www.msftncsi.com. (Type: AAAA)
+2025-05-28 17:07:26,975 - __main__ - INFO - Found DNS query: www.msftncsi.com.
+2025-05-28 17:07:26,975 - __main__ - INFO - Domain google.com not found in query: www.msftncsi.com.
+2025-05-28 17:07:26,976 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:07:26,979 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:07:26,980 - __main__ - INFO - DNS packet type: Response, ID: 50658
+2025-05-28 17:07:26,981 - __main__ - INFO - Processed DNS query: www.msftncsi.com. (Type: A)
+2025-05-28 17:07:26,981 - __main__ - INFO - Processed DNS answer: www.msftncsi.com. -> b'www.msftncsi.com.edgesuite.net.' (CNAME)
+2025-05-28 17:07:26,982 - __main__ - INFO - Processed DNS answer: www.msftncsi.com.edgesuite.net. -> b'a1961.g2.akamai.net.' (CNAME)
+2025-05-28 17:07:26,982 - __main__ - INFO - Processed DNS answer: a1961.g2.akamai.net. -> 183.82.248.17 (A)
+2025-05-28 17:07:26,983 - __main__ - INFO - Processed DNS answer: a1961.g2.akamai.net. -> 183.82.248.51 (A)
+2025-05-28 17:07:26,983 - __main__ - INFO - Processed DNS answer: a1961.g2.akamai.net. -> 202.83.24.145 (A)
+2025-05-28 17:07:26,984 - __main__ - INFO - Processed DNS answer: a1961.g2.akamai.net. -> 202.83.24.139 (A)
+2025-05-28 17:07:26,984 - __main__ - INFO - Found DNS query: www.msftncsi.com.
+2025-05-28 17:07:26,985 - __main__ - INFO - Domain google.com not found in query: www.msftncsi.com.
+2025-05-28 17:07:26,985 - __main__ - INFO - Checking answer: www.msftncsi.com.
+2025-05-28 17:07:26,985 - __main__ - INFO - Checking answer: www.msftncsi.com.edgesuite.net.
+2025-05-28 17:07:26,985 - __main__ - INFO - Checking answer: a1961.g2.akamai.net.
+2025-05-28 17:07:26,986 - __main__ - INFO - Checking answer: a1961.g2.akamai.net.
+2025-05-28 17:07:26,986 - __main__ - INFO - Checking answer: a1961.g2.akamai.net.
+2025-05-28 17:07:26,987 - __main__ - INFO - Checking answer: a1961.g2.akamai.net.
+2025-05-28 17:07:26,987 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:07:26,989 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:07:26,989 - __main__ - INFO - DNS packet type: Response, ID: 24472
+2025-05-28 17:07:26,990 - __main__ - INFO - Processed DNS query: www.msftncsi.com. (Type: AAAA)
+2025-05-28 17:07:26,990 - __main__ - INFO - Processed DNS answer: www.msftncsi.com. -> b'www.msftncsi.com.edgesuite.net.' (CNAME)
+2025-05-28 17:07:26,991 - __main__ - INFO - Processed DNS answer: www.msftncsi.com.edgesuite.net. -> b'a1961.g2.akamai.net.' (CNAME)
+2025-05-28 17:07:26,991 - __main__ - INFO - Found DNS query: www.msftncsi.com.
+2025-05-28 17:07:26,991 - __main__ - INFO - Domain google.com not found in query: www.msftncsi.com.
+2025-05-28 17:07:26,992 - __main__ - INFO - Checking answer: www.msftncsi.com.
+2025-05-28 17:07:26,992 - __main__ - INFO - Checking answer: www.msftncsi.com.edgesuite.net.
+2025-05-28 17:07:26,992 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:07:32,016 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:07:32,017 - __main__ - INFO - DNS packet type: Query, ID: 23179
+2025-05-28 17:07:32,018 - __main__ - INFO - Processed DNS query: www.canva.com. (Type: AAAA)
+2025-05-28 17:07:32,018 - __main__ - INFO - Found DNS query: www.canva.com.
+2025-05-28 17:07:32,018 - __main__ - INFO - Domain google.com not found in query: www.canva.com.
+2025-05-28 17:07:32,018 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:07:32,019 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:07:32,020 - __main__ - INFO - DNS packet type: Query, ID: 49126
+2025-05-28 17:07:32,021 - __main__ - INFO - Processed DNS query: www.canva.com. (Type: A)
+2025-05-28 17:07:32,021 - __main__ - INFO - Found DNS query: www.canva.com.
+2025-05-28 17:07:32,022 - __main__ - INFO - Domain google.com not found in query: www.canva.com.
+2025-05-28 17:07:32,022 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:07:32,023 - __main__ - INFO - Packet capture completed
+2025-05-28 17:10:34,468 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:10:34,615 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,617 - __main__ - INFO - DNS packet type: Query, ID: 37558
+2025-05-28 17:10:34,619 - __main__ - INFO - Processed DNS query: us-only.gcpp.cursor.sh. (Type: A)
+2025-05-28 17:10:34,619 - __main__ - INFO - Found DNS query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,619 - __main__ - INFO - Domain google.com not found in query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,620 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:34,621 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,622 - __main__ - INFO - DNS packet type: Query, ID: 18215
+2025-05-28 17:10:34,622 - __main__ - INFO - Processed DNS query: us-only.gcpp.cursor.sh. (Type: AAAA)
+2025-05-28 17:10:34,622 - __main__ - INFO - Found DNS query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,623 - __main__ - INFO - Domain google.com not found in query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,623 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:34,625 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,625 - __main__ - INFO - DNS packet type: Response, ID: 37558
+2025-05-28 17:10:34,626 - __main__ - INFO - Processed DNS query: us-only.gcpp.cursor.sh. (Type: A)
+2025-05-28 17:10:34,626 - __main__ - INFO - Processed DNS answer: us-only.gcpp.cursor.sh. -> 99.83.165.34 (A)
+2025-05-28 17:10:34,626 - __main__ - INFO - Processed DNS answer: us-only.gcpp.cursor.sh. -> 75.2.76.8 (A)
+2025-05-28 17:10:34,626 - __main__ - INFO - Found DNS query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,626 - __main__ - INFO - Domain google.com not found in query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,632 - __main__ - INFO - Checking answer: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,632 - __main__ - INFO - Checking answer: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,632 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:34,634 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,634 - __main__ - INFO - DNS packet type: Response, ID: 18215
+2025-05-28 17:10:34,635 - __main__ - INFO - Processed DNS query: us-only.gcpp.cursor.sh. (Type: AAAA)
+2025-05-28 17:10:34,635 - __main__ - INFO - Found DNS query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,635 - __main__ - INFO - Domain google.com not found in query: us-only.gcpp.cursor.sh.
+2025-05-28 17:10:34,635 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:34,638 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,638 - __main__ - INFO - DNS packet type: Query, ID: 47801
+2025-05-28 17:10:34,639 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:10:34,640 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:10:34,640 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:10:34,646 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:34,647 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,648 - __main__ - INFO - DNS packet type: Query, ID: 61232
+2025-05-28 17:10:34,648 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:10:34,648 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:10:34,649 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:10:34,650 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:34,657 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,660 - __main__ - INFO - DNS packet type: Response, ID: 47801
+2025-05-28 17:10:34,660 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:10:34,661 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:10:34,661 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:10:34,661 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 34.225.103.142 (A)
+2025-05-28 17:10:34,661 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 3.234.165.166 (A)
+2025-05-28 17:10:34,662 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 54.172.94.165 (A)
+2025-05-28 17:10:34,662 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 34.232.184.45 (A)
+2025-05-28 17:10:34,662 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 54.224.119.200 (A)
+2025-05-28 17:10:34,662 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 35.169.166.49 (A)
+2025-05-28 17:10:34,663 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 44.205.235.194 (A)
+2025-05-28 17:10:34,663 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 3.211.155.40 (A)
+2025-05-28 17:10:34,663 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:10:34,663 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:10:34,664 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:10:34,664 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:10:34,664 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,664 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,664 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,665 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,665 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,665 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,665 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,665 - __main__ - INFO - Checking answer: api2direct.cursor.sh.
+2025-05-28 17:10:34,666 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:34,667 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:34,667 - __main__ - INFO - DNS packet type: Response, ID: 61232
+2025-05-28 17:10:34,667 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:10:34,669 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:10:34,677 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:10:34,678 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:10:34,678 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:10:34,678 - __main__ - INFO - Checking answer: api2.cursor.sh.
+2025-05-28 17:10:34,678 - __main__ - INFO - Checking answer: api2geo.cursor.sh.
+2025-05-28 17:10:34,678 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:39,674 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:39,675 - __main__ - INFO - DNS packet type: Query, ID: 35947
+2025-05-28 17:10:39,682 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:10:39,682 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:10:39,682 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:10:39,683 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:39,684 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:10:39,684 - __main__ - INFO - DNS packet type: Query, ID: 59236
+2025-05-28 17:10:39,685 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:10:39,685 - __main__ - INFO - Found DNS query: api2.cursor.sh.
+2025-05-28 17:10:39,686 - __main__ - INFO - Domain google.com not found in query: api2.cursor.sh.
+2025-05-28 17:10:39,686 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:10:39,686 - __main__ - INFO - Packet capture completed
+2025-05-28 17:14:19,111 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:14:19,129 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:19,129 - __main__ - INFO - DNS packet type: Query, ID: 3458
+2025-05-28 17:14:19,130 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:14:19,156 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:19,157 - __main__ - INFO - DNS packet type: Response, ID: 3458
+2025-05-28 17:14:19,157 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:14:19,157 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:14:19,159 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:14:20,302 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:20,302 - __main__ - INFO - DNS packet type: Query, ID: 54936
+2025-05-28 17:14:20,303 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:14:20,306 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:20,306 - __main__ - INFO - DNS packet type: Query, ID: 26910
+2025-05-28 17:14:20,307 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:14:20,311 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:20,312 - __main__ - INFO - DNS packet type: Response, ID: 54936
+2025-05-28 17:14:20,312 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:14:20,313 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:14:20,314 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdeus01.eastus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:14:20,314 - __main__ - INFO - Processed DNS answer: onedscolprdeus01.eastus.cloudapp.azure.com. -> 52.168.112.66 (A)
+2025-05-28 17:14:20,320 - __main__ - INFO - Packet capture completed
+2025-05-28 17:14:29,236 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:14:30,461 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:30,461 - __main__ - INFO - DNS packet type: Query, ID: 7861
+2025-05-28 17:14:30,463 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:14:30,463 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,463 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,464 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:30,465 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:30,466 - __main__ - INFO - DNS packet type: Query, ID: 56597
+2025-05-28 17:14:30,466 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:14:30,467 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,467 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,468 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:30,470 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:30,470 - __main__ - INFO - DNS packet type: Response, ID: 7861
+2025-05-28 17:14:30,471 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:14:30,471 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:14:30,471 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdeus01.eastus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:14:30,473 - __main__ - INFO - Processed DNS answer: onedscolprdeus01.eastus.cloudapp.azure.com. -> 52.168.112.66 (A)
+2025-05-28 17:14:30,473 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,473 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,474 - __main__ - INFO - Checking answer: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,474 - __main__ - INFO - Checking answer: mobile.events.data.trafficmanager.net.
+2025-05-28 17:14:30,475 - __main__ - INFO - Checking answer: onedscolprdeus01.eastus.cloudapp.azure.com.
+2025-05-28 17:14:30,475 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:30,478 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:30,479 - __main__ - INFO - DNS packet type: Response, ID: 56597
+2025-05-28 17:14:30,480 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:14:30,480 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:14:30,481 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdeus01.eastus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:14:30,481 - __main__ - INFO - Found DNS query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,482 - __main__ - INFO - Domain google.com not found in query: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,482 - __main__ - INFO - Checking answer: mobile.events.data.microsoft.com.
+2025-05-28 17:14:30,482 - __main__ - INFO - Checking answer: mobile.events.data.trafficmanager.net.
+2025-05-28 17:14:30,483 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:31,982 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:31,983 - __main__ - INFO - DNS packet type: Query, ID: 58015
+2025-05-28 17:14:31,983 - __main__ - INFO - Processed DNS query: api.msn.com. (Type: A)
+2025-05-28 17:14:31,984 - __main__ - INFO - Found DNS query: api.msn.com.
+2025-05-28 17:14:31,984 - __main__ - INFO - Domain google.com not found in query: api.msn.com.
+2025-05-28 17:14:31,984 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:31,985 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:31,986 - __main__ - INFO - DNS packet type: Query, ID: 58972
+2025-05-28 17:14:31,987 - __main__ - INFO - Processed DNS query: api.msn.com. (Type: AAAA)
+2025-05-28 17:14:31,987 - __main__ - INFO - Found DNS query: api.msn.com.
+2025-05-28 17:14:31,988 - __main__ - INFO - Domain google.com not found in query: api.msn.com.
+2025-05-28 17:14:31,988 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:31,991 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:31,991 - __main__ - INFO - DNS packet type: Response, ID: 58015
+2025-05-28 17:14:31,991 - __main__ - INFO - Processed DNS query: api.msn.com. (Type: A)
+2025-05-28 17:14:31,992 - __main__ - INFO - Processed DNS answer: api.msn.com. -> b'api-msn-com-oneservice-world-default.trafficmanager.net.' (CNAME)
+2025-05-28 17:14:31,993 - __main__ - INFO - Processed DNS answer: api-msn-com-oneservice-world-default.trafficmanager.net. -> b'api-msn-com.ax-0003.ax-msedge.net.' (CNAME)
+2025-05-28 17:14:31,994 - __main__ - INFO - Processed DNS answer: api-msn-com.ax-0003.ax-msedge.net. -> b'ax-0003.ax-msedge.net.' (CNAME)
+2025-05-28 17:14:31,994 - __main__ - INFO - Processed DNS answer: ax-0003.ax-msedge.net. -> 150.171.28.12 (A)
+2025-05-28 17:14:31,994 - __main__ - INFO - Processed DNS answer: ax-0003.ax-msedge.net. -> 150.171.27.12 (A)
+2025-05-28 17:14:31,995 - __main__ - INFO - Found DNS query: api.msn.com.
+2025-05-28 17:14:31,995 - __main__ - INFO - Domain google.com not found in query: api.msn.com.
+2025-05-28 17:14:31,996 - __main__ - INFO - Checking answer: api.msn.com.
+2025-05-28 17:14:31,996 - __main__ - INFO - Checking answer: api-msn-com-oneservice-world-default.trafficmanager.net.
+2025-05-28 17:14:31,996 - __main__ - INFO - Checking answer: api-msn-com.ax-0003.ax-msedge.net.
+2025-05-28 17:14:31,997 - __main__ - INFO - Checking answer: ax-0003.ax-msedge.net.
+2025-05-28 17:14:31,997 - __main__ - INFO - Checking answer: ax-0003.ax-msedge.net.
+2025-05-28 17:14:31,997 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:31,999 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:32,000 - __main__ - INFO - DNS packet type: Response, ID: 58972
+2025-05-28 17:14:32,001 - __main__ - INFO - Processed DNS query: api.msn.com. (Type: AAAA)
+2025-05-28 17:14:32,001 - __main__ - INFO - Processed DNS answer: api.msn.com. -> b'api-msn-com-oneservice-world-default.trafficmanager.net.' (CNAME)
+2025-05-28 17:14:32,002 - __main__ - INFO - Processed DNS answer: api-msn-com-oneservice-world-default.trafficmanager.net. -> b'api-msn-com.ax-0003.ax-msedge.net.' (CNAME)
+2025-05-28 17:14:32,002 - __main__ - INFO - Processed DNS answer: api-msn-com.ax-0003.ax-msedge.net. -> b'ax-0003.ax-msedge.net.' (CNAME)
+2025-05-28 17:14:32,003 - __main__ - INFO - Processed DNS answer: ax-0003.ax-msedge.net. -> 2620:1ec:33:1::12 (AAAA)
+2025-05-28 17:14:32,003 - __main__ - INFO - Processed DNS answer: ax-0003.ax-msedge.net. -> 2620:1ec:33::12 (AAAA)
+2025-05-28 17:14:32,004 - __main__ - INFO - Found DNS query: api.msn.com.
+2025-05-28 17:14:32,004 - __main__ - INFO - Domain google.com not found in query: api.msn.com.
+2025-05-28 17:14:32,004 - __main__ - INFO - Checking answer: api.msn.com.
+2025-05-28 17:14:32,004 - __main__ - INFO - Checking answer: api-msn-com-oneservice-world-default.trafficmanager.net.
+2025-05-28 17:14:32,006 - __main__ - INFO - Checking answer: api-msn-com.ax-0003.ax-msedge.net.
+2025-05-28 17:14:32,006 - __main__ - INFO - Checking answer: ax-0003.ax-msedge.net.
+2025-05-28 17:14:32,006 - __main__ - INFO - Checking answer: ax-0003.ax-msedge.net.
+2025-05-28 17:14:32,007 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:32,247 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:32,248 - __main__ - INFO - DNS packet type: Query, ID: 44064
+2025-05-28 17:14:32,249 - __main__ - INFO - Processed DNS query: assets.msn.com. (Type: A)
+2025-05-28 17:14:32,249 - __main__ - INFO - Found DNS query: assets.msn.com.
+2025-05-28 17:14:32,250 - __main__ - INFO - Domain google.com not found in query: assets.msn.com.
+2025-05-28 17:14:32,250 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:32,251 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:14:32,252 - __main__ - INFO - DNS packet type: Query, ID: 5364
+2025-05-28 17:14:32,252 - __main__ - INFO - Processed DNS query: assets.msn.com. (Type: AAAA)
+2025-05-28 17:14:32,253 - __main__ - INFO - Found DNS query: assets.msn.com.
+2025-05-28 17:14:32,253 - __main__ - INFO - Domain google.com not found in query: assets.msn.com.
+2025-05-28 17:14:32,253 - __main__ - INFO - No domain match found in packet
+2025-05-28 17:14:32,254 - __main__ - INFO - Packet capture completed
+2025-05-28 17:17:45,875 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:17:47,049 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:17:47,049 - __main__ - INFO - DNS packet type: Query, ID: 37847
+2025-05-28 17:17:47,050 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:17:47,053 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:17:47,054 - __main__ - INFO - DNS packet type: Query, ID: 14917
+2025-05-28 17:17:47,055 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:17:47,060 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:17:47,060 - __main__ - INFO - DNS packet type: Response, ID: 37847
+2025-05-28 17:17:47,061 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:17:47,063 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:17:47,063 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdcus05.centralus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:17:47,064 - __main__ - INFO - Processed DNS answer: onedscolprdcus05.centralus.cloudapp.azure.com. -> 20.44.10.123 (A)
+2025-05-28 17:17:47,069 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:17:47,070 - __main__ - INFO - DNS packet type: Response, ID: 14917
+2025-05-28 17:17:47,071 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:17:47,071 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:17:47,071 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdcus05.centralus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:17:47,076 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:17:47,077 - __main__ - INFO - DNS packet type: Query, ID: 42150
+2025-05-28 17:17:47,079 - __main__ - INFO - Processed DNS query: appcasts.razer.com. (Type: A)
+2025-05-28 17:17:47,082 - __main__ - INFO - Packet capture completed
+2025-05-28 17:19:55,444 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:19:56,637 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:19:56,637 - __main__ - INFO - DNS packet type: Query, ID: 50838
+2025-05-28 17:19:56,638 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:19:56,643 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:19:56,644 - __main__ - INFO - DNS packet type: Query, ID: 45429
+2025-05-28 17:19:56,644 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:19:56,648 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:19:56,649 - __main__ - INFO - DNS packet type: Response, ID: 50838
+2025-05-28 17:19:56,650 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:19:56,651 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:19:56,651 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdcus17.centralus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:19:56,652 - __main__ - INFO - Processed DNS answer: onedscolprdcus17.centralus.cloudapp.azure.com. -> 104.208.16.91 (A)
+2025-05-28 17:19:56,657 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:19:56,658 - __main__ - INFO - DNS packet type: Response, ID: 45429
+2025-05-28 17:19:56,659 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:19:56,660 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:19:56,660 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdcus17.centralus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:20:06,013 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:20:06,013 - __main__ - INFO - DNS packet type: Query, ID: 62393
+2025-05-28 17:20:06,014 - __main__ - INFO - Processed DNS query: tracker.torrent.eu.org. (Type: A)
+2025-05-28 17:20:06,019 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:20:06,020 - __main__ - INFO - DNS packet type: Query, ID: 47439
+2025-05-28 17:20:06,020 - __main__ - INFO - Processed DNS query: tracker.torrent.eu.org. (Type: AAAA)
+2025-05-28 17:20:06,025 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:20:06,026 - __main__ - INFO - DNS packet type: Response, ID: 62393
+2025-05-28 17:20:06,026 - __main__ - INFO - Processed DNS query: tracker.torrent.eu.org. (Type: A)
+2025-05-28 17:20:06,027 - __main__ - INFO - Processed DNS answer: tracker.torrent.eu.org. -> 91.216.110.53 (A)
+2025-05-28 17:20:06,031 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:20:06,032 - __main__ - INFO - DNS packet type: Response, ID: 47439
+2025-05-28 17:20:06,033 - __main__ - INFO - Processed DNS query: tracker.torrent.eu.org. (Type: AAAA)
+2025-05-28 17:20:06,033 - __main__ - INFO - Processed DNS answer: tracker.torrent.eu.org. -> 2a03:7220:8083:cd00::1 (AAAA)
+2025-05-28 17:20:12,026 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:20:12,026 - __main__ - INFO - DNS packet type: Query, ID: 18572
+2025-05-28 17:20:12,027 - __main__ - INFO - Processed DNS query: telemetry.canva.com. (Type: AAAA)
+2025-05-28 17:20:12,030 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:20:12,031 - __main__ - INFO - DNS packet type: Query, ID: 7793
+2025-05-28 17:20:12,031 - __main__ - INFO - Processed DNS query: telemetry.canva.com. (Type: A)
+2025-05-28 17:20:12,034 - __main__ - INFO - Packet capture completed
+2025-05-28 17:21:47,864 - __main__ - INFO - Starting packet capture...
+2025-05-28 17:21:47,963 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:47,963 - __main__ - INFO - DNS packet type: Query, ID: 40189
+2025-05-28 17:21:47,964 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:21:47,969 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:47,969 - __main__ - INFO - DNS packet type: Query, ID: 11120
+2025-05-28 17:21:47,970 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:21:47,977 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:47,978 - __main__ - INFO - DNS packet type: Response, ID: 40189
+2025-05-28 17:21:47,978 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: A)
+2025-05-28 17:21:47,980 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:21:47,981 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:21:47,981 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 34.233.28.173 (A)
+2025-05-28 17:21:47,982 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 54.204.102.146 (A)
+2025-05-28 17:21:47,982 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 3.228.251.194 (A)
+2025-05-28 17:21:47,982 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 54.147.244.222 (A)
+2025-05-28 17:21:47,983 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 34.205.158.64 (A)
+2025-05-28 17:21:47,983 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 54.242.130.112 (A)
+2025-05-28 17:21:47,984 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 100.26.118.163 (A)
+2025-05-28 17:21:47,984 - __main__ - INFO - Processed DNS answer: api2direct.cursor.sh. -> 44.205.235.194 (A)
+2025-05-28 17:21:47,993 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:47,993 - __main__ - INFO - DNS packet type: Response, ID: 11120
+2025-05-28 17:21:47,994 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:21:47,994 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:21:47,995 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:21:48,943 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:48,943 - __main__ - INFO - DNS packet type: Query, ID: 5987
+2025-05-28 17:21:48,944 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:21:48,948 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:48,948 - __main__ - INFO - DNS packet type: Response, ID: 5987
+2025-05-28 17:21:48,948 - __main__ - INFO - Processed DNS query: api2.cursor.sh. (Type: AAAA)
+2025-05-28 17:21:48,949 - __main__ - INFO - Processed DNS answer: api2.cursor.sh. -> b'api2geo.cursor.sh.' (CNAME)
+2025-05-28 17:21:48,949 - __main__ - INFO - Processed DNS answer: api2geo.cursor.sh. -> b'api2direct.cursor.sh.' (CNAME)
+2025-05-28 17:21:49,051 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:49,052 - __main__ - INFO - DNS packet type: Query, ID: 31795
+2025-05-28 17:21:49,052 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:21:49,056 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:49,056 - __main__ - INFO - DNS packet type: Query, ID: 29696
+2025-05-28 17:21:49,056 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:21:49,063 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:49,064 - __main__ - INFO - DNS packet type: Response, ID: 31795
+2025-05-28 17:21:49,065 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: A)
+2025-05-28 17:21:49,065 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:21:49,066 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdcus02.centralus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:21:49,066 - __main__ - INFO - Processed DNS answer: onedscolprdcus02.centralus.cloudapp.azure.com. -> 20.44.10.122 (A)
+2025-05-28 17:21:49,070 - __main__ - INFO - Found DNS layer in packet
+2025-05-28 17:21:49,072 - __main__ - INFO - DNS packet type: Response, ID: 29696
+2025-05-28 17:21:49,072 - __main__ - INFO - Processed DNS query: mobile.events.data.microsoft.com. (Type: AAAA)
+2025-05-28 17:21:49,073 - __main__ - INFO - Processed DNS answer: mobile.events.data.microsoft.com. -> b'mobile.events.data.trafficmanager.net.' (CNAME)
+2025-05-28 17:21:49,073 - __main__ - INFO - Processed DNS answer: mobile.events.data.trafficmanager.net. -> b'onedscolprdcus02.centralus.cloudapp.azure.com.' (CNAME)
+2025-05-28 17:21:49,076 - __main__ - INFO - Packet capture completed
