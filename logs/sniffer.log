@@ -1,0 +1,35 @@
+2025-05-27 19:04:48,082 - core.capture - INFO - Starting capture on interface {EB4E1732-8F80-4856-A7BA-AA52772231EB}
+2025-05-27 19:04:48,140 - core.capture - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:04:48,140 - __main__ - ERROR - An error occurred: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:06:33,531 - core.capture - INFO - Starting capture on interface {EB4E1732-8F80-4856-A7BA-AA52772231EB}
+2025-05-27 19:06:33,577 - core.capture - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:06:33,578 - __main__ - ERROR - An error occurred: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-27 19:15:01,835 - __main__ - ERROR - Error during packet capture: Interface '{EB4E1732-8F80-4856-A7BA-AA52772231EB}' not found !
+2025-05-28 13:48:44,204 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:45,179 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:45,430 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:46,097 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:46,238 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:46,244 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:46,353 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:47,403 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:48,133 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:50,077 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:50,110 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:50,111 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:50,407 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:50,410 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:51,421 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:51,435 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:51,438 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:51,545 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:55,411 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:58,501 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:48:58,846 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:49:00,590 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:49:00,609 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:49:01,209 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:49:19,712 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:49:19,729 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:49:19,913 - __main__ - ERROR - Error getting DNS info: qname
+2025-05-28 13:49:20,600 - __main__ - ERROR - Error getting DNS info: qname
