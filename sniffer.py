@@ -5,9 +5,11 @@ import sys
 import logging
 from datetime import datetime
 from pathlib import Path
-from scapy.all import sniff, IP, TCP, UDP, ICMP, ARP, Ether, conf, DNS, DNSQR, DNSRR, Raw, IPv6
+from scapy.all import sniff, IP, TCP, UDP, ICMP, ARP, Ether, conf, DNS, DNSQR, DNSRR, Raw, IPv6, sr1
 import netifaces
 from colorama import init, Fore, Style
+import socket
+import threading
 
 # Initialize colorama
 init()
@@ -20,7 +22,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(log_path),
+        logging.FileHandler(log_path, encoding='utf-8'),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -36,6 +38,30 @@ class PacketSniffer:
         self.packets_captured = 0
         self.source_packets = []
         self.timeout = timeout
+        self.domain_ips = set()
+        self.ip_to_domain = {}  # Cache for IP to domain resolution
+        
+        # If domain is provided, resolve it
+        if domain:
+            try:
+                # Get both IPv4 and IPv6 addresses
+                for family in (socket.AF_INET, socket.AF_INET6):
+                    try:
+                        for ip in socket.getaddrinfo(domain, None, family):
+                            self.domain_ips.add(ip[4][0])
+                    except socket.gaierror:
+                        continue
+                
+                if self.domain_ips:
+                    print(f"\n{Fore.GREEN}Resolved {domain} to IPs: {', '.join(self.domain_ips)}{Style.RESET_ALL}")
+                    # Update filter string to include all IPs
+                    ip_filter = ' or '.join(f'host {ip}' for ip in self.domain_ips)
+                    if self.filter_string:
+                        self.filter_string = f"({self.filter_string}) and ({ip_filter})"
+                    else:
+                        self.filter_string = ip_filter
+            except Exception as e:
+                print(f"{Fore.YELLOW}Warning: Could not resolve domain {domain}: {str(e)}{Style.RESET_ALL}")
         
     def _get_default_interface(self):
         """Get the default network interface."""
@@ -101,7 +127,21 @@ class PacketSniffer:
                 flags.append("ACK")
             if packet[TCP].flags & 0x20:  # URG
                 flags.append("URG")
-            return " ".join(flags)
+            
+            # Add description of common flag combinations
+            flag_str = " ".join(flags)
+            if "SYN" in flag_str and "ACK" in flag_str:
+                flag_str += " (Connection established)"
+            elif "FIN" in flag_str and "ACK" in flag_str:
+                flag_str += " (Connection closing)"
+            elif "RST" in flag_str:
+                flag_str += " (Connection reset)"
+            elif "PSH" in flag_str and "ACK" in flag_str:
+                flag_str += " (Data transfer)"
+            elif "ACK" in flag_str and len(flags) == 1:
+                flag_str += " (Acknowledgement)"
+            
+            return flag_str
         return None
 
     def _get_dns_info(self, packet):
@@ -161,6 +201,40 @@ class PacketSniffer:
                                 logger.error(f"Error processing DNS answer: {str(e)}")
                     dns_info['answers'] = answers
                     
+                    # Get authority records
+                    if hasattr(dns_layer, 'ns') and dns_layer.ns:
+                        authorities = []
+                        for rr in dns_layer.ns:
+                            try:
+                                if hasattr(rr, 'rdata'):
+                                    authority = {
+                                        'name': rr.rrname.decode('utf-8', errors='ignore'),
+                                        'type': self._get_dns_type_name(rr.type),
+                                        'data': str(rr.rdata)
+                                    }
+                                    authorities.append(authority)
+                                    logger.info(f"Processed DNS authority: {authority['name']} -> {authority['data']} ({authority['type']})")
+                            except Exception as e:
+                                logger.error(f"Error processing DNS authority: {str(e)}")
+                        dns_info['authorities'] = authorities
+                    
+                    # Get additional records
+                    if hasattr(dns_layer, 'ar') and dns_layer.ar:
+                        additionals = []
+                        for rr in dns_layer.ar:
+                            try:
+                                if hasattr(rr, 'rdata'):
+                                    additional = {
+                                        'name': rr.rrname.decode('utf-8', errors='ignore'),
+                                        'type': self._get_dns_type_name(rr.type),
+                                        'data': str(rr.rdata)
+                                    }
+                                    additionals.append(additional)
+                                    logger.info(f"Processed DNS additional: {additional['name']} -> {additional['data']} ({additional['type']})")
+                            except Exception as e:
+                                logger.error(f"Error processing DNS additional: {str(e)}")
+                        dns_info['additionals'] = additionals
+                    
         except Exception as e:
             logger.error(f"Error getting DNS info: {str(e)}")
         
@@ -208,6 +282,116 @@ class PacketSniffer:
         }
         return dns_types.get(type_code, f'Type{type_code}')
 
+    def _resolve_ip_to_domain(self, ip):
+        """Resolve IP address to domain name."""
+        if ip in self.ip_to_domain:
+            return self.ip_to_domain[ip]
+        
+        try:
+            # Try to get domain name from IP
+            domain = socket.gethostbyaddr(ip)[0]
+            self.ip_to_domain[ip] = domain
+            return domain
+        except:
+            self.ip_to_domain[ip] = None
+            return None
+
+    def _get_http_info(self, payload):
+        """Extract HTTP information from payload."""
+        try:
+            decoded = payload.decode('utf-8', errors='ignore')
+            
+            # Check for HTTP request
+            if decoded.startswith(('GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS')):
+                lines = decoded.split('\n')
+                request_line = lines[0].strip()
+                headers = {}
+                for line in lines[1:]:
+                    if ':' in line:
+                        key, value = line.split(':', 1)
+                        headers[key.strip()] = value.strip()
+                return {
+                    'type': 'request',
+                    'method': request_line.split()[0],
+                    'path': request_line.split()[1],
+                    'headers': headers
+                }
+            
+            # Check for HTTP response
+            elif decoded.startswith('HTTP/'):
+                lines = decoded.split('\n')
+                status_line = lines[0].strip()
+                headers = {}
+                for line in lines[1:]:
+                    if ':' in line:
+                        key, value = line.split(':', 1)
+                        headers[key.strip()] = value.strip()
+                return {
+                    'type': 'response',
+                    'status': status_line,
+                    'headers': headers
+                }
+            
+            return None
+        except:
+            return None
+
+    def _format_payload(self, payload):
+        """Format packet payload data in a readable way."""
+        try:
+            # Try to decode as UTF-8
+            decoded = payload.decode('utf-8', errors='ignore')
+            
+            # If the decoded string is empty or only whitespace, try other encodings
+            if not decoded.strip():
+                # Try other common encodings
+                for encoding in ['ascii', 'latin1', 'cp1252']:
+                    try:
+                        decoded = payload.decode(encoding, errors='ignore')
+                        if decoded.strip():
+                            break
+                    except:
+                        continue
+                
+                # If still no readable content, return hex
+                if not decoded.strip():
+                    return f"[Binary/Encrypted Data]\nLength: {len(payload)} bytes\nHex: {payload.hex()}"
+            
+            # Clean the decoded string
+            cleaned = ''.join(char for char in decoded if char.isprintable() or char in '\n\t\r')
+            
+            # If after cleaning we have no content, return hex
+            if not cleaned.strip():
+                return f"[Binary/Encrypted Data]\nLength: {len(payload)} bytes\nHex: {payload.hex()}"
+            
+            # Check for common protocols and formats
+            if cleaned.startswith(('GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS', 'HTTP/')):
+                http_info = self._get_http_info(payload)
+                if http_info:
+                    if http_info['type'] == 'request':
+                        return f"[HTTP Request]\n{http_info['method']} {http_info['path']}\nHeaders:\n" + \
+                               '\n'.join(f"  {k}: {v}" for k, v in http_info['headers'].items())
+                    else:
+                        return f"[HTTP Response]\n{http_info['status']}\nHeaders:\n" + \
+                               '\n'.join(f"  {k}: {v}" for k, v in http_info['headers'].items())
+                return f"[HTTP Data]\n{cleaned}"
+            
+            if cleaned.strip().startswith('{') or cleaned.strip().startswith('['):
+                return f"[JSON Data]\n{cleaned}"
+            
+            if '<html' in cleaned.lower() or '<!doctype' in cleaned.lower():
+                return f"[HTML Data]\n{cleaned}"
+            
+            if cleaned.strip().startswith('<?xml') or cleaned.strip().startswith('<'):
+                return f"[XML Data]\n{cleaned}"
+            
+            # If it's just text but not any of the above
+            return f"[Text Data]\n{cleaned}"
+            
+        except Exception as e:
+            # If all decoding attempts fail, return hex
+            return f"[Binary/Encrypted Data]\nLength: {len(payload)} bytes\nHex: {payload.hex()}"
+
     def _get_protocol_info(self, packet):
         """Get detailed protocol information."""
         info = {}
@@ -221,11 +405,26 @@ class PacketSniffer:
                 info['src_port'] = packet[TCP].sport
                 info['dst_port'] = packet[TCP].dport
                 info['flags'] = self._get_tcp_flags(packet)
+                info['seq'] = packet[TCP].seq
+                info['ack'] = packet[TCP].ack
+                info['window'] = packet[TCP].window
                 
-                # Try to get DNS info from TCP payload
+                # Get TCP payload data
                 if Raw in packet:
+                    payload = packet[Raw].load
+                    info['payload'] = self._format_payload(payload)
+                    
+                    # Check for HTTP data
+                    http_data = self._get_http_info(payload)
+                    if http_data:
+                        info['http_data'] = http_data
+                    
+                    # Check for BitTorrent
+                    if payload.startswith(b'BitTorrent protocol'):
+                        info['protocol'] = 'BitTorrent'
+                    
                     try:
-                        dns_packet = DNS(packet[Raw].load)
+                        dns_packet = DNS(payload)
                         if dns_packet:
                             dns_info = self._get_dns_info(dns_packet)
                             info.update(dns_info)
@@ -234,6 +433,12 @@ class PacketSniffer:
             elif UDP in packet:
                 info['src_port'] = packet[UDP].sport
                 info['dst_port'] = packet[UDP].dport
+                info['length'] = packet[UDP].len
+                
+                # Get UDP payload data
+                if Raw in packet:
+                    payload = packet[Raw].load
+                    info['payload'] = self._format_payload(payload)
                 
                 # DNS specific information
                 if DNS in packet:
@@ -248,19 +453,32 @@ class PacketSniffer:
                 info['src_port'] = packet[TCP].sport
                 info['dst_port'] = packet[TCP].dport
                 info['flags'] = self._get_tcp_flags(packet)
+                info['seq'] = packet[TCP].seq
+                info['ack'] = packet[TCP].ack
+                info['window'] = packet[TCP].window
                 
-                # Try to get DNS info from TCP payload
+                # Get TCP payload data
                 if Raw in packet:
-                    try:
-                        dns_packet = DNS(packet[Raw].load)
-                        if dns_packet:
-                            dns_info = self._get_dns_info(dns_packet)
-                            info.update(dns_info)
-                    except:
-                        pass
+                    payload = packet[Raw].load
+                    info['payload'] = self._format_payload(payload)
+                    
+                    # Check for HTTP data
+                    http_data = self._get_http_info(payload)
+                    if http_data:
+                        info['http_data'] = http_data
+                    
+                    # Check for BitTorrent
+                    if payload.startswith(b'BitTorrent protocol'):
+                        info['protocol'] = 'BitTorrent'
             elif UDP in packet:
                 info['src_port'] = packet[UDP].sport
                 info['dst_port'] = packet[UDP].dport
+                info['length'] = packet[UDP].len
+                
+                # Get UDP payload data
+                if Raw in packet:
+                    payload = packet[Raw].load
+                    info['payload'] = self._format_payload(payload)
                 
                 # DNS specific information
                 if DNS in packet:
@@ -269,44 +487,89 @@ class PacketSniffer:
             elif ICMP in packet:
                 info['type'] = packet[ICMP].type
                 info['code'] = packet[ICMP].code
-                
+                if Raw in packet:
+                    info['payload'] = self._format_payload(packet[Raw].load)
         elif ARP in packet:
+            info['op'] = packet[ARP].op
             info['src_mac'] = packet[ARP].hwsrc
             info['dst_mac'] = packet[ARP].hwdst
             info['src_ip'] = packet[ARP].psrc
             info['dst_ip'] = packet[ARP].pdst
-            
+        
         return info
 
     def _print_packet_info(self, packet):
-        """Print formatted packet information."""
+        """Print detailed packet information."""
         protocol = self._get_protocol_name(packet)
         info = self._get_protocol_info(packet)
         
-        # Print packet header
         print(f"\n{Fore.CYAN}{'='*50}{Style.RESET_ALL}")
-        print(f"{Fore.GREEN}Packet #{self.packets_captured}{Style.RESET_ALL}")
-        print(f"{Fore.YELLOW}Protocol: {protocol}{Style.RESET_ALL}")
+        print(f"{Fore.GREEN}Protocol: {protocol}{Style.RESET_ALL}")
         
-        # Print packet details
-        for key, value in info.items():
-            if key == 'query':
-                print(f"{Fore.WHITE}DNS Query: {value['name']} ({value['type']}){Style.RESET_ALL}")
-            elif key == 'answers':
-                print(f"{Fore.WHITE}DNS Answers:{Style.RESET_ALL}")
-                for answer in value:
-                    print(f"  {Fore.WHITE}{answer['name']} -> {answer['data']} ({answer['type']}){Style.RESET_ALL}")
-            elif key == 'type' and 'DNS' in protocol:
-                print(f"{Fore.WHITE}DNS Type: {value}{Style.RESET_ALL}")
-            elif key == 'id' and 'DNS' in protocol:
-                print(f"{Fore.WHITE}DNS ID: {value}{Style.RESET_ALL}")
-            elif key == 'flags':
-                print(f"{Fore.WHITE}TCP Flags: {value}{Style.RESET_ALL}")
+        # Print source and destination information
+        if 'src_ip' in info:
+            src_domain = self._resolve_ip_to_domain(info['src_ip'])
+            domain_info = f" ({src_domain})" if src_domain else ""
+            print(f"{Fore.YELLOW}Source IP: {info['src_ip']}{domain_info}{Style.RESET_ALL}")
+        if 'dst_ip' in info:
+            dst_domain = self._resolve_ip_to_domain(info['dst_ip'])
+            domain_info = f" ({dst_domain})" if dst_domain else ""
+            print(f"{Fore.YELLOW}Destination IP: {info['dst_ip']}{domain_info}{Style.RESET_ALL}")
+        if 'src_port' in info:
+            print(f"{Fore.YELLOW}Source Port: {info['src_port']}{Style.RESET_ALL}")
+        if 'dst_port' in info:
+            print(f"{Fore.YELLOW}Destination Port: {info['dst_port']}{Style.RESET_ALL}")
+        
+        # Print protocol-specific information
+        if 'flags' in info:
+            print(f"{Fore.YELLOW}TCP Flags: {info['flags']}{Style.RESET_ALL}")
+            if 'seq' in info:
+                print(f"{Fore.YELLOW}Sequence Number: {info['seq']}{Style.RESET_ALL}")
+            if 'ack' in info:
+                print(f"{Fore.YELLOW}Acknowledgement Number: {info['ack']}{Style.RESET_ALL}")
+            if 'window' in info:
+                print(f"{Fore.YELLOW}Window Size: {info['window']}{Style.RESET_ALL}")
+        if 'length' in info:
+            print(f"{Fore.YELLOW}UDP Length: {info['length']}{Style.RESET_ALL}")
+        if 'type' in info:
+            print(f"{Fore.YELLOW}ICMP Type: {info['type']}{Style.RESET_ALL}")
+        if 'code' in info:
+            print(f"{Fore.YELLOW}ICMP Code: {info['code']}{Style.RESET_ALL}")
+        if 'protocol' in info:
+            print(f"{Fore.YELLOW}Application Protocol: {info['protocol']}{Style.RESET_ALL}")
+        
+        # Print DNS information if available
+        if 'type' in info and info['type'] in ['Query', 'Response']:
+            print(f"\n{Fore.MAGENTA}DNS Information:{Style.RESET_ALL}")
+            print(f"Type: {info['type']}")
+            if 'query' in info:
+                print(f"Query: {info['query']['name']} ({info['query']['type']})")
+            if 'answers' in info and info['answers']:
+                print("Answers:")
+                for answer in info['answers']:
+                    print(f"  {answer['name']} -> {answer['data']} ({answer['type']})")
             else:
-                print(f"{Fore.WHITE}{key}: {value}{Style.RESET_ALL}")
-            
-        # Print packet summary
-        print(f"{Fore.CYAN}{'='*50}{Style.RESET_ALL}")
+                print("No answers in response")
+            if 'authorities' in info and info['authorities']:
+                print("Authorities:")
+                for authority in info['authorities']:
+                    print(f"  {authority['name']} -> {authority['data']} ({authority['type']})")
+            if 'additionals' in info and info['additionals']:
+                print("Additional Records:")
+                for additional in info['additionals']:
+                    print(f"  {additional['name']} -> {additional['data']} ({additional['type']})")
+        
+        # Print HTTP information if available
+        if 'http_data' in info:
+            print(f"\n{Fore.MAGENTA}HTTP Information:{Style.RESET_ALL}")
+            print(info['http_data'])
+        
+        # Print payload data if available
+        if 'payload' in info:
+            print(f"\n{Fore.MAGENTA}Payload Data:{Style.RESET_ALL}")
+            print(f"{info['payload']}")
+        
+        print(f"{Fore.CYAN}{'='*50}{Style.RESET_ALL}\n")
 
     def _print_source_ip_summary(self):
         """Print summary of packets from the specified source IP."""
@@ -346,49 +609,28 @@ class PacketSniffer:
     def packet_callback(self, packet):
         """Callback function for each captured packet."""
         try:
-            if self.source_ip and IP in packet:
-                if packet[IP].src == self.source_ip:
-                    self.source_packets.append(packet)
-                    self._print_packet_info(packet)
-            elif self.domain and (DNS in packet or (Raw in packet and (UDP in packet or TCP in packet))):
-                # Try to get DNS info from the packet
-                dns_info = self._get_dns_info(packet)
-                if dns_info:
-                    should_print = False
-                    
-                    # Check query name
-                    if 'query' in dns_info:
-                        qname = dns_info['query']['name']
-                        logger.info(f"Found DNS query: {qname}")
-                        if self.domain.lower() in qname.lower():
-                            logger.info(f"Matched domain in query: {qname}")
-                            should_print = True
-                        else:
-                            logger.info(f"Domain {self.domain} not found in query: {qname}")
-                    
-                    # Check answer names
-                    if 'answers' in dns_info:
-                        for answer in dns_info['answers']:
-                            logger.info(f"Checking answer: {answer['name']}")
-                            if self.domain.lower() in answer['name'].lower():
-                                logger.info(f"Matched domain in answer: {answer['name']}")
-                                should_print = True
-                                break
-                    
-                    if should_print:
+            # Check if packet matches our domain IPs
+            if self.domain_ips:
+                if IP in packet:
+                    src_ip = packet[IP].src
+                    dst_ip = packet[IP].dst
+                    if src_ip in self.domain_ips or dst_ip in self.domain_ips:
+                        logger.info(f"Found matching packet: {src_ip} -> {dst_ip}")
                         self._print_packet_info(packet)
-                    else:
-                        logger.info("No domain match found in packet")
-                else:
-                    logger.info("No DNS info found in packet")
+                        self.packets_captured += 1
+                elif IPv6 in packet:
+                    src_ip = packet[IPv6].src
+                    dst_ip = packet[IPv6].dst
+                    if src_ip in self.domain_ips or dst_ip in self.domain_ips:
+                        logger.info(f"Found matching packet: {src_ip} -> {dst_ip}")
+                        self._print_packet_info(packet)
+                        self.packets_captured += 1
             else:
                 self._print_packet_info(packet)
+                self.packets_captured += 1
             
-            self.packets_captured += 1
-            
-            # Only print summary if we're tracking source IP and have reached the count
-            if self.source_ip and self.packet_count and self.packets_captured >= self.packet_count:
-                self._print_source_ip_summary()
+            # Check if we've reached the packet count
+            if self.packet_count and self.packets_captured >= self.packet_count:
                 return True
             
         except Exception as e:
@@ -408,6 +650,14 @@ class PacketSniffer:
             # Configure Scapy to use the specified interface
             conf.iface = self.interface
             
+            # If we have domain IPs, capture all web traffic
+            if self.domain_ips:
+                self.filter_string = "tcp port 80 or tcp port 443"
+                print(f"{Fore.YELLOW}Capturing web traffic (ports 80 and 443){Style.RESET_ALL}\n")
+                print(f"{Fore.YELLOW}Monitoring IPs:{Style.RESET_ALL}")
+                for ip in self.domain_ips:
+                    print(f"  {ip}")
+            
             # Print the filter being used
             if self.filter_string:
                 print(f"{Fore.YELLOW}Using filter: {self.filter_string}{Style.RESET_ALL}\n")
@@ -417,12 +667,9 @@ class PacketSniffer:
                 'iface': self.interface,
                 'filter': self.filter_string,
                 'prn': self.packet_callback,
-                'store': 0
+                'store': 0,
+                'stop_filter': lambda p: self.packets_captured >= self.packet_count if self.packet_count else False
             }
-            
-            # Add count if specified
-            if self.packet_count is not None:
-                sniff_params['count'] = self.packet_count
             
             # Add timeout if specified
             if timeout is not None or self.timeout is not None:
@@ -435,14 +682,71 @@ class PacketSniffer:
             
         except KeyboardInterrupt:
             print(f"\n{Fore.YELLOW}Packet capture stopped by user{Style.RESET_ALL}")
-            if self.source_ip:
-                self._print_source_ip_summary()
+            return 0
         except Exception as e:
             logger.error(f"Error during packet capture: {str(e)}")
             print(f"{Fore.RED}Error: {str(e)}{Style.RESET_ALL}")
             return 1
         
         return 0
+
+    def scan_ports(self, target, ports=None):
+        """Scan for open ports on the target."""
+        if ports is None:
+            ports = [21, 22, 23, 25, 53, 80, 110, 143, 443, 445, 993, 995, 3306, 3389, 8080]
+        
+        print(f"\n{Fore.CYAN}Scanning ports on {target}...{Style.RESET_ALL}")
+        open_ports = []
+        
+        # Common port descriptions
+        port_descriptions = {
+            21: "FTP",
+            22: "SSH",
+            23: "Telnet", 
+            25: "SMTP",
+            53: "DNS",
+            80: "HTTP",
+            110: "POP3",
+            143: "IMAP",
+            443: "HTTPS",
+            445: "SMB",
+            993: "IMAPS",
+            995: "POP3S",
+            3306: "MySQL",
+            3389: "RDP",
+            8080: "HTTP-Alt"
+        }
+        
+        for port in ports:
+            # Create SYN packet
+            syn_packet = IP(dst=target)/TCP(dport=port, flags="S")
+            
+            # Send packet and wait for response
+            response = sr1(syn_packet, timeout=1, verbose=0)
+            
+            if response and response.haslayer(TCP):
+                if response[TCP].flags == 0x12:  # SYN-ACK
+                    # Send RST to close connection
+                    rst_packet = IP(dst=target)/TCP(dport=port, flags="R")
+                    sr1(rst_packet, timeout=1, verbose=0)
+                    open_ports.append(port)
+                    service = port_descriptions.get(port, "Unknown")
+                    print(f"{Fore.GREEN}Port {port} ({service}) is open{Style.RESET_ALL}")
+                elif response[TCP].flags == 0x14:  # RST-ACK
+                    print(f"{Fore.RED}Port {port} is closed{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.YELLOW}Port {port} is filtered/blocked{Style.RESET_ALL}")
+        
+        if open_ports:
+            print(f"\n{Fore.GREEN}Open ports found: {', '.join(map(str, open_ports))}{Style.RESET_ALL}")
+            print(f"\n{Fore.CYAN}Services detected:{Style.RESET_ALL}")
+            for port in open_ports:
+                service = port_descriptions.get(port, "Unknown")
+                print(f"  {port}/tcp - {service}")
+        else:
+            print(f"\n{Fore.YELLOW}No open ports found{Style.RESET_ALL}")
+        
+        return open_ports
 
 def parse_arguments():
     """Parse command line arguments."""
@@ -453,28 +757,47 @@ def parse_arguments():
     parser.add_argument('--source', help='Source IP address to track')
     parser.add_argument('--domain', help='Domain name to filter DNS packets')
     parser.add_argument('--timeout', type=int, help='Timeout in seconds for packet capture')
+    parser.add_argument('--scan', help='Target to scan for open ports')
     return parser.parse_args()
 
 def main():
     """Main function."""
-    args = parse_arguments()
-    
-    # Create packet sniffer
-    sniffer = PacketSniffer(
-        interface=args.interface,
-        filter_string=args.filter,
-        packet_count=args.count,
-        source_ip=args.source,
-        domain=args.domain
-    )
-    
-    # If no interface specified, show available interfaces
-    if not args.interface:
-        sniffer._list_interfaces()
-        print(f"\n{Fore.YELLOW}Please specify an interface using --interface or -i{Style.RESET_ALL}")
+    try:
+        args = parse_arguments()
+        
+        # If scan argument is provided, perform port scan (doesn't need interface)
+        if args.scan:
+            # Create a minimal sniffer for scanning (interface not needed for scanning)
+            sniffer = PacketSniffer()
+            sniffer.scan_ports(args.scan)
+            return 0
+        
+        # Create packet sniffer for capture operations
+        sniffer = PacketSniffer(
+            interface=args.interface,
+            filter_string=args.filter,
+            packet_count=args.count,
+            source_ip=args.source,
+            domain=args.domain
+        )
+        
+        # If no interface specified, show available interfaces
+        if not args.interface:
+            sniffer._list_interfaces()
+            print(f"\n{Fore.YELLOW}Please specify an interface using --interface or -i{Style.RESET_ALL}")
+            return 1
+        
+        return sniffer.start_capture(timeout=args.timeout)
+    except KeyboardInterrupt:
+        print(f"\n{Fore.YELLOW}Program terminated by user{Style.RESET_ALL}")
+        return 0
+    except Exception as e:
+        print(f"{Fore.RED}Error: {str(e)}{Style.RESET_ALL}")
         return 1
-    
-    return sniffer.start_capture(timeout=args.timeout)
 
 if __name__ == '__main__':
-    sys.exit(main()) 
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print(f"\n{Fore.YELLOW}Program terminated by user{Style.RESET_ALL}")
+        sys.exit(0) 
